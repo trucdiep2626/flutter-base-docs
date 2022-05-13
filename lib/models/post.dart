@@ -6,9 +6,9 @@ part 'post.freezed.dart';
 @freezed
 class Post with _$Post {
   factory Post({
-    required int id,
+  //  required int id,
     String? title,
-    String? description,
+  //  String? description,
     @Default([]) List<Content> contents,
     @Default([]) List<Post> subPost,
   }) = _Post;
