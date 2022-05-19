@@ -48,6 +48,8 @@ dependencies:
 
   flutter_hooks: ^0.18.0
 
+  inview_notifier_list: ^3.0.0
+
   flutter_screenutil: ^5.5.2
 dev_dependencies:
   flutter_test:

@@ -25,7 +25,7 @@ class FirebaseDocs {
             '\n\tAdMob'
             '\n\t...')
   ], subPost: [
-    Post(title: 'Set up Firebase dùng CLI', contents: [
+    Post(title: 'Set up Firebase CLI (recommended)', contents: [
       Content(type: ContentType.title, data: '1. Cài đặt Firebase Core'),
       Content(
           type: ContentType.text,
@@ -50,7 +50,7 @@ class FirebaseDocs {
       Content(
           type: ContentType.text,
           data:
-              'Dùng lệnh sau:\n\tfirebase login \n\tSau đó nhập tài khoản Google để đăng nhập'),
+              'Dùng lệnh sau:\n\b firebase login \n\b Sau đó nhập tài khoản Google để đăng nhập'),
       Content(
           type: ContentType.image,
           data: image+'firebase_login.png'
@@ -94,7 +94,7 @@ class FirebaseDocs {
           data: 'await Firebase.initializeApp\('
               '\n\toptions: DefaultFirebaseOptions.currentPlatform\);'),
     ]),
-    Post(title: 'Set up Firebase thủ công', contents: [
+    Post(title: 'Set up Firebase manual', contents: [
       Content(type: ContentType.title, data: 'Thiết lập Firebase Project'),
       Content(
           type: ContentType.text,

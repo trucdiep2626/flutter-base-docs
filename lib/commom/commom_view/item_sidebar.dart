@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_docs/commom/core/constans.dart';
+import 'package:flutter_base_docs/models/content.dart';
+import 'package:flutter_base_docs/models/post.dart';
 
 class ItemSisebar extends StatelessWidget {
-  const ItemSisebar({Key? key, required this.listtutorial}) : super(key: key);
-  final Listtutorial listtutorial;
+  const ItemSisebar({Key? key, required this.listtutorial, this.onTap}) : super(key: key);
+  final Post listtutorial;
+  final void Function(List<Content> contents)? onTap;
 
-  Widget _buildTiles(Listtutorial root) {
-    if (root.children.isEmpty) {
-      return ListTile(
-        title: Text(root.title),
+  Widget _buildTiles(Post root) {
+    if (root.subPost.isEmpty) {
+      return GestureDetector(
+        onTap: (){
+          onTap!(root.contents);
+        },
+        child: ListTile(
+          title: Text(root.title ?? ''),
+        ),
       );
     }
-    return ExpansionTile(
-      title: Text(root.title),
-      childrenPadding: const EdgeInsets.only(left: 20),
-      children: root.children.map<Widget>(_buildTiles).toList(),
+    return GestureDetector(
+      onTap:  (){
+        onTap!(root.contents);
+      },
+      child: ExpansionTile(
+        title: Text(root.title ?? ''),
+        childrenPadding: const EdgeInsets.only(left: 20),
+        children: root.subPost.map<Widget>((e) => _buildTiles(e)).toList(),
+      ),
     );
   }
 
