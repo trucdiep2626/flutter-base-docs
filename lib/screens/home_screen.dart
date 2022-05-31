@@ -60,68 +60,72 @@ class HomeScreen extends HookConsumerWidget {
                 //             style: TextStyle(
                 //                 fontWeight: FontWeight.bold, fontSize: 25),
                 //           ),
-               Stack(
-                 fit: StackFit.expand,
-                 children: [
-                   InViewNotifierList(
-                     shrinkWrap: true,
-                     //     physics: NeverScrollableScrollPhysics(),
-                     controller: contentsController,
-                     initialInViewIds: ['0'],
-                     isInViewPortCondition:
-                         (double deltaTop, double deltaBottom, double vpHeight) {
-                       return (deltaTop < (0.5 * vpHeight) + 100.0 &&
-                           deltaBottom > (0.5 * vpHeight) - 100.0);
-                     },
-                     // inViewArea: Container(
-                     //   height: 200.0,
-                     //   color: Colors.redAccent.withOpacity(0.2),
-                     // ),
-                     itemCount: ref.watch(homeProvider).contents.length,
-                     builder: (BuildContext context, int index) {
-                       log('bbbbbbbbbbbb');
-                       return InViewNotifierWidget(
-                         id: index.toString(),
-                         builder: (context, isInView, child) {
-                           log('eeeeeeeeeeeeee');
-                           log(isInView.toString());
-                           log(ref.watch(homeProvider).contents[index].data ?? '');
-                           if (isInView &&
-                               ref.watch(homeProvider).contents[index].type ==
-                                   ContentType.title) {
-                             log(ref.watch(homeProvider).contents[index].data ?? '');
-                             // ref.read(homeProvider.notifier).updateCurrentTitle(
-                             //     ref.watch(homeProvider).contents[index].data ?? '');
-                           }
-                           return Padding(
-                             padding: EdgeInsets.all(8.0),
-                             child: _buildContent(
-                                 ref.watch(homeProvider).contents[index]),
-                           );
-                         },
-                       );
-                     },
-                   ),
-              IgnorePointer(
-                ignoring: true,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                      height: 200.0,
-                      color: Colors.redAccent.withOpacity(0.2),
-                    ),
-                ),)
-                 ],
-               )
-            // ListView.builder(
-            //     shrinkWrap: true,
-            //     itemCount: ref.watch(homeProvider).contents.length,
-            //     physics: NeverScrollableScrollPhysics(),
-            //     itemBuilder: (context, index) => Padding(
-            //       padding: const EdgeInsets.all(8.0),
-            //       child: _buildContent(
-            //           ref.watch(homeProvider).contents[index]),
-            //     ))
+              //  Stack(
+              //    fit: StackFit.expand,
+              //    children: [
+              //      InViewNotifierList(
+              //        shrinkWrap: true,
+              //        //     physics: NeverScrollableScrollPhysics(),
+              //        controller: contentsController,
+              //        initialInViewIds: ['0'],
+              //        isInViewPortCondition:
+              //            (double deltaTop, double deltaBottom, double vpHeight) {
+              //          return (deltaTop < (0.5 * vpHeight) + 100.0 &&
+              //              deltaBottom > (0.5 * vpHeight) - 100.0);
+              //        },
+              //        // inViewArea: Container(
+              //        //   height: 200.0,
+              //        //   color: Colors.redAccent.withOpacity(0.2),
+              //        // ),
+              //        itemCount: ref.watch(homeProvider).contents.length,
+              //        builder: (BuildContext context, int index) {
+              //          log('bbbbbbbbbbbb');
+              //          return InViewNotifierWidget(
+              //            id: index.toString(),
+              //            builder: (context, isInView, child) {
+              //              log('eeeeeeeeeeeeee');
+              //              log(isInView.toString());
+              //              log(ref.watch(homeProvider).contents[index].data ?? '');
+              //              if (isInView &&
+              //                  ref.watch(homeProvider).contents[index].type ==
+              //                      ContentType.title) {
+              //                log(ref.watch(homeProvider).contents[index].data ?? '');
+              //                // ref.read(homeProvider.notifier).updateCurrentTitle(
+              //                //     ref.watch(homeProvider).contents[index].data ?? '');
+              //              }
+              //              return Padding(
+              //                padding: EdgeInsets.all(8.0),
+              //                child: _buildContent(
+              //                    ref.watch(homeProvider).contents[index]),
+              //              );
+              //            },
+              //          );
+              //        },
+              //      ),
+              // // IgnorePointer(
+              // //   ignoring: true,
+              // //   child: Align(
+              // //     alignment: Alignment.center,
+              // //     child: Container(
+              // //         height: 200.0,
+              // //         color: Colors.redAccent.withOpacity(0.2),
+              // //       ),
+              // //   ),)
+              //    ],
+              //  )
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: ref.watch(homeProvider).contents.length,
+              //    physics: NeverScrollableScrollPhysics(),
+                  controller: contentsController,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: _buildContent(
+                        ref.watch(homeProvider).contents[index]),
+                  )),
+            )
             //     ],
             //   ),
             // ))
@@ -129,22 +133,25 @@ class HomeScreen extends HookConsumerWidget {
           Expanded(
               flex: 1,
               child: SingleChildScrollView(
+                controller: titlesListController,
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: ref
                         .watch(homeProvider)
                         .contents
                         .map(
-                          (e) => e.type == ContentType.title
+                          (e) => e.type == ContentType.title || e.type == ContentType.subtitle
                               ? Padding(
-                                  padding: const EdgeInsets.all(16),
+                                  padding:e.type == ContentType.subtitle ?  EdgeInsets.only(left: 24, top: 8): EdgeInsets.only(left: 8, top: 8),
                                   child: Text(
                                     e.data ?? '',
                                     style: TextStyle(
                                       //  fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                                        height: 2.0,
+                                        fontSize: e.type == ContentType.subtitle ?18: 20,
                                         color: ref
                                                     .watch(homeProvider)
                                                     .currentTitle ==
@@ -185,12 +192,20 @@ class HomeScreen extends HookConsumerWidget {
       case ContentType.title:
         return SelectableText(
           content.data ?? '',
+          textAlign: content.textAlign,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+        );
+      case ContentType.subtitle:
+        return SelectableText(
+          content.data ?? '',
+          textAlign: content.textAlign,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         );
       case ContentType.text:
         return SelectableText(
           content.data ?? '',
-          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16),
+          textAlign: content.textAlign,
+          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16, height: 2.0) ,
         );
       case ContentType.code:
         return Container(
@@ -198,7 +213,9 @@ class HomeScreen extends HookConsumerWidget {
           decoration: BoxDecoration(
               border: Border.all(), color: Colors.grey.withOpacity(0.5)),
           child: SelectableText(
+
             content.data ?? '',
+            textAlign: content.textAlign,
             style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16),
           ),
         );
