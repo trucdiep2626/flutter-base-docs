@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_docs/data/auto_test_docs.dart';
 import 'package:flutter_base_docs/data/firebase_docs.dart';
+import 'package:flutter_base_docs/data/locale_docs.dart';
+import 'package:flutter_base_docs/data/momo_docs.dart';
+import 'package:flutter_base_docs/data/vnpay_docs.dart';
 import 'package:flutter_base_docs/models/post.dart';
 
 class Constans {}
 
 final List<Post> listData = [
   FirebaseDocs.firebaseDocs,
+  AutoTestDocs.autoTestDocs,
+  LocaleDocs.localeDocs,
+  MomoDocs.momoDocs,
+  VnpayDocs.vnpayDocs
 ];
 
 // class Listtutorial {
