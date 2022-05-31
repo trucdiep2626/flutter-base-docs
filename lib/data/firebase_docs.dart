@@ -483,7 +483,9 @@ class FirebaseDocs {
               'Sau đó quay lại Facebook for developer, đến mục Settings trong product Facebook Login. Sau đó dán URL vừa copy vào mục Valid OAuth Redirect URIs và nhấn Save.'),
       Content(type: ContentType.image, data: image + 'fb_oauth_url.png'),
       Content(type: ContentType.subtitle, data: 'Xử lý code Flutter đăng nhập với Facebook và Firebase'),
-      Content(data: 'Để đăng nhập ')
+      Content(data: 'Dùng plugin flutter_facebook_login để xử lý.'),
+      Content(type: ContentType.image, data: image + 'fb_log_in.png'),
+      Content(type: ContentType.image, data: image + 'fb_log_out_check_login.png'),
     ])
   ]);
 }
